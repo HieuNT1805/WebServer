@@ -82,9 +82,8 @@ exports.getProduct = (req,res)=>{
 
 exports.updateProduct = (req,res)=>{
     const id = req.params.productId;
-    const updatedData = req.body;
 
-    Product.findByIdAndUpdate(id, updatedData, { new: true })
+    Product.findByIdAndUpdate(id, req.body, {new:true})
     .exec()
     .then(result=>{
         res.status(200).json({
@@ -93,20 +92,22 @@ exports.updateProduct = (req,res)=>{
         })
     })
     .catch(err=>{
-        res.status(500).json( err =>{
-            res.status(500).json({
-                error:err
-            });
-        })
+		res.status(500).json({
+		   	error:err
+		})
     })
 }
 
 exports.deleteProduct = (req, res)=>{
     const id = req.params.productId;
+	
     Product.findByIdAndDelete(id)
     .exec()
-    .then(result=>{
+    .then((result)=>{
         res.status(200).json({
+			data:{
+				_id:result._id,
+			},
             message:"Product Deleted"
         })
     })
