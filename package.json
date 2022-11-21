@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nodemon ./server.js",
     "start": "node ./server.js"
   },
   "author": "kazz",
@@ -15,5 +15,9 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.6.5"
+  },
+  "devDependencies": {
+    "apidoc": "^0.53.1",
+    "nodemon": "^2.0.20"
   }
 }
