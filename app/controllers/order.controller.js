@@ -1,28 +1,30 @@
-const { response } = require("express");
 const Order = require("../models/order.model");
 const Product = require("../models/product.model");
 
 exports.getOrders = (req, res)=>{
     Order.find({buyer: req.userId})
     .select("productId quantity _id buyer")
+    .populate("productId", "_id name price")
     .exec()
-    .then(doc=>{
+    .then(docs=>{
         const response = {
-            count : doc.length,
+            count: docs.length,
             orders: docs.map(doc=>{
                 return{
                     _id: doc._id,
-                    productId: doc.productId,
+                    product: doc.productId,
                     quantity: doc.quantity,
                     buyer: doc.buyer,
-                }
+                } 
             })
         }
+    
         res.status(200).json({response})
     })
     .catch(err=>{
-        res.status(500).json({error:err});
+        res.status(500).json({error:err})
     })
+    
 }
 
 exports.postOrder = (req, res)=>{
@@ -57,3 +59,40 @@ exports.postOrder = (req, res)=>{
     })
 }
 
+exports.getOrder = (req, res) =>{
+    const id = req.params.orderId;
+
+    Order.find({_id: id, buyer:req.userId})
+    .select("productId quantity _id")
+    .populate("productId", "_id name price")
+    .exec()
+    .then(doc=>{
+        if(doc){
+            res.status(200).json({order: doc})
+
+        }else{
+            res.status(404).json({message: "Order not found"});
+        }
+    })
+    .catch(err=>{
+        res.status(500).json({error:err});
+    })
+}
+
+exports.deleteOrder = (req, res )=>{
+    const id = req.params.orderId
+
+    Order.remove({_id: id, buyer:req.userId})
+    .exec()
+    .then(result=>{
+        res.status(200).json({
+            message:"Order deleted"
+        });
+    })
+    .catch(err=>{
+        res.status(500).json({
+            error:err
+        })
+    })
+     
+}

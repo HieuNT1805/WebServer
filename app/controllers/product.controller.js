@@ -1,6 +1,6 @@
 
 const Product = require("../models/product.model");
-// const Order = require("../models/order.model");
+
 
 exports.getAllProducts = (req, res) =>{
     Product.find()
