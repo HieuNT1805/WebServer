@@ -19,7 +19,7 @@ exports.getOrders = (req, res)=>{
             })
         }
     
-        res.status(200).json({response})
+        res.status(200).json(response)
     })
     .catch(err=>{
         res.status(500).json({error:err})
@@ -46,12 +46,12 @@ exports.postOrder = (req, res)=>{
     })
     .then(result=>{
         res.status(201).json({
-            message:"Order Stored",
             currentOrder:{
                 _id: result._id,
                 productId: result.productId,
                 quantity: result.quantity
-            }
+            },
+            message:"Order Stored",
         })
     })
     .catch(err=>{
@@ -68,8 +68,7 @@ exports.getOrder = (req, res) =>{
     .exec()
     .then(doc=>{
         if(doc){
-            res.status(200).json({order: doc})
-
+            res.status(200).json(doc)
         }else{
             res.status(404).json({message: "Order not found"});
         }
@@ -82,10 +81,13 @@ exports.getOrder = (req, res) =>{
 exports.deleteOrder = (req, res )=>{
     const id = req.params.orderId
 
-    Order.remove({_id: id, buyer:req.userId})
+    Order.deleteOne({_id: id, buyer:req.userId})
     .exec()
-    .then(result=>{
-        res.status(200).json({
+    .then((result)=>{
+        res.status(200).json({   
+            data:{
+                _id: id
+            },
             message:"Order deleted"
         });
     })
