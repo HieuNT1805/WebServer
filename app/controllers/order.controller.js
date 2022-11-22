@@ -46,12 +46,12 @@ exports.postOrder = (req, res)=>{
     })
     .then(result=>{
         res.status(201).json({
-            message:"Order Stored",
             currentOrder:{
                 _id: result._id,
                 productId: result.productId,
                 quantity: result.quantity
-            }
+            },
+            message:"Order Stored",
         })
     })
     .catch(err=>{
@@ -81,10 +81,13 @@ exports.getOrder = (req, res) =>{
 exports.deleteOrder = (req, res )=>{
     const id = req.params.orderId
 
-    Order.remove({_id: id, buyer:req.userId})
+    Order.deleteOne({_id: id, buyer:req.userId})
     .exec()
-    .then(result=>{
-        res.status(200).json({
+    .then((result)=>{
+        res.status(200).json({   
+            data:{
+                _id: id
+            },
             message:"Order deleted"
         });
     })

@@ -14,12 +14,12 @@ module.exports = function(app){
      * @api {GET} /api/products/:productId Get a product
      * @apiVersion 1.0.0
      * @apiName getProduct
-     * @apiGroup User
+     * @apiGroup Product
      * @apiPermission Every one
      *
      * @apiDescription Get one product
      * 
-     * @apiParam {string} id ID of product, on params
+     * @apiParam {string} productId ID of product, on params
      *
      * @apiExample Example usage:
      * curl -i https://jewel-store-pj.herokuapp.com/api/products/637a316c457d58c281b4bb3a 
@@ -58,14 +58,16 @@ module.exports = function(app){
      *       "result": "fail",
      *       "message": "",
      *     }
+     * 
+     * @apiSampleRequest https://jewel-store-pj.herokuapp.com/api/products/:productId
      */
-
     app.get("/api/products/:productId", controller.getProduct);
+
     /**
      * @api {GET} /api/products Get all products
      * @apiVersion 1.0.0
      * @apiName getAllProducts
-     * @apiGroup User
+     * @apiGroup Product
      * @apiPermission Every one
      *
      * @apiDescription List all of product
@@ -105,6 +107,8 @@ module.exports = function(app){
      *       "result": "fail",
      *       "message": "",
      *     }
+     * 
+     *  @apiSampleRequest https://jewel-store-pj.herokuapp.com/api/products
      */
     app.get("/api/products",controller.getAllProducts);
 
@@ -112,19 +116,19 @@ module.exports = function(app){
      * @api {POST} /api/manage/products Add one
      * @apiVersion 1.0.0
      * @apiName addProduct
-     * @apiGroup User
+     * @apiGroup Product
      * @apiPermission just moderator user
-     * @apiHeader {String} access_token json web token to access to data
+     * @apiHeader {String} x-access-token json web token to access to data
      *
      * @apiDescription add product
      *
-     * @apiParam {String} name Name of user
-     * @apiParam {Number} price Price of product
-     * @apiParam {Number} stock Stock of Product
-     * @apiParam {String} proType Type of product
+     * @apiBody {String} name Name of user
+     * @apiBody {Number} price Price of product
+     * @apiBody {Number} stock Stock of Product
+     * @apiBody {String} proType Type of product
      *
      * @apiExample Example usage:
-     * curl -i  https://jewel-store-pj.herokuapp.com/api/manage/products
+     * curl -H "x-access-token: abc" -i  https://jewel-store-pj.herokuapp.com/api/manage/products
      *
      * @apiSuccess {Object} createdProduct information of product
      * @apiSuccessExample Success-Response:
@@ -148,6 +152,8 @@ module.exports = function(app){
      *       "result":"fail",
      *       "message": "invalid input"
      *     }
+     * 
+     * @apiSampleRequest https://jewel-store-pj.herokuapp.com/api/manage/products
      */
     app.post("/api/manage/products",[auth.verifyToken, auth.isModerator],controller.postNewProduct);
     
@@ -155,20 +161,20 @@ module.exports = function(app){
      * @api {PATCH} /api/manage/products/:productId Update
      * @apiVersion 1.0.0
      * @apiName updateProduct
-     * @apiGroup User
+     * @apiGroup Product
      * @apiPermission just moderator user
-     * @apiHeader {String} access_token json web token to access to data
+     * @apiHeader {String} x-access-token json web token to access to data
      *
      * @apiDescription update product
      *
-     * @apiParam {string} id ID of product, on params
-     * @apiParam {String} name Name of user (option)
-     * @apiParam {Number} price Price of product (option)
-     * @apiParam {Number} stock Stock of Product (option)
-     * @apiParam {String} proType Type of product (option)
+     * @apiParam {string} productId ID of product, on params
+     * @apiBody {String} [name] Name of user 
+     * @apiBody {Number} [price] Price of product 
+     * @apiBody {Number} [stock] Stock of Product 
+     * @apiBody {String} [proType] Type of product 
      *
      * @apiExample Example usage:
-     * curl -i  https://jewel-store-pj.herokuapp.com/api/manage/products/637a316c457d58c281b4bb3a
+     * curl -H "x-access-token: abc"-i  https://jewel-store-pj.herokuapp.com/api/manage/products/637a316c457d58c281b4bb3a
      *
      * @apiSuccess {Object} createdProduct information of product
      * @apiSuccessExample Success-Response:
@@ -192,6 +198,8 @@ module.exports = function(app){
      *       "result":"fail",
      *       "message": "invalid input"
      *     }
+     * 
+     * @apiSampleRequest https://jewel-store-pj.herokuapp.com/api/manage/products/:productId
      */
     app.patch("/api/manage/products/:productId",[auth.verifyToken, auth.isModerator], controller.updateProduct);
     
@@ -199,16 +207,16 @@ module.exports = function(app){
      * @api {DELETE} /api/manage/products/:productId Delete
      * @apiVersion 1.0.0
      * @apiName deleteProduct
-     * @apiGroup User
+     * @apiGroup Product
      * @apiPermission just moderator user
-     * @apiHeader {String} access_token json web token to access to data
+     * @apiHeader {String} x-access-token json web token to access to data
      *
      * @apiDescription delete product
      *
-     * @apiParam {string} id ID of product, on params
+     * @apiParam {string} productId ID of product, on params
      *
      * @apiExample Example usage:
-     * curl -i  https://jewel-store-pj.herokuapp.com/api/manage/products/637a316c457d58c281b4bb3a
+     * curl -H "x-access-token:abc" -i  https://jewel-store-pj.herokuapp.com/api/manage/products/637a316c457d58c281b4bb3a
      *
      * @apiSuccess {String} _id Id of deleted product
      * @apiSuccessExample Success-Response:
@@ -228,6 +236,8 @@ module.exports = function(app){
      *       "result":"fail",
      *       "message": "invalid input"
      *     }
+     * 
+     *  @apiSampleRequest https://jewel-store-pj.herokuapp.com/api/manage/products/:productId
      */
     app.delete("/api/manage/products/:productId",[auth.verifyToken, auth.isModerator], controller.deleteProduct);
 };

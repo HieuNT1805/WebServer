@@ -10,6 +10,7 @@ module.exports = function(app) {
     );
     next();
   });
+
   /**
      * @api {POST} /api/auth/signup Create User
      * @apiVersion 1.0.0
@@ -19,9 +20,11 @@ module.exports = function(app) {
      *
      * @apiDescription Create user 
      *
-     * @apiParam {string} userName a unique string with 6 <= length <= 64
-     * @apiParam {string} email unique email
-     * @apiParam {String} password a string with 6 <= length <= 64
+     * @apiBody {string} username a unique string with 6 <= length <= 64
+     * @apiBody {string} email unique email
+     * @apiBody {String} [firstname] firstname of user
+     * @apiBody {String} [lastname] lastname of user
+     * @apiBody {String} password a string with 6 <= length <= 64
      *
      * @apiExample Example usage:
      * curl -i https://jewel-store-pj.herokuapp.com/api/auth/signup
@@ -48,7 +51,8 @@ module.exports = function(app) {
      *      {
      *        "Failed! Email is already in use!,
      *      }
-     
+     *
+     *@apiSampleRequest https://jewel-store-pj.herokuapp.com/api/auth/signup
      */
   app.post(
     "/api/auth/signup",
@@ -70,8 +74,8 @@ module.exports = function(app) {
      *
      * @apiDescription login and get access token
      *
-     * @apiParam {string} username a string with length <= 10
-     * @apiParam {String} password a string with 4 < length < 64
+     * @apiBody {string} username=admin a string with length <= 10
+     * @apiBody {String} password=123456789 a string with 4 < length < 64
      *
      * @apiExample Example usage:
      * curl -i https://jewel-store-pj.herokuapp.com/api/auth/signin
@@ -82,15 +86,13 @@ module.exports = function(app) {
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
      *     {
-     *       "data":{
-     *          "id": "1",
-     *          "username": "hieunguyen",
-     *          "email": trunghieu180501@gmail.com
-     *          "accessToken": "abc",
-     *       },
+     *       "id": "1",
+     *       "username": "hieunguyen",
+     *       "email": "trunghieu180501@gmail.com",
      *       "roles": [
      *          "ROLE_USER"
-     *        ]
+     *       ],
+     *       "accessToken": "abc",
      *     }
      *
      * @apiError invalid username
@@ -108,6 +110,9 @@ module.exports = function(app) {
      *      {
      *        "message": "Invalid Password!"
      *      }
+     * 
+     * 
+     * @apiSampleRequest https://jewel-store-pj.herokuapp.com/api/auth/signin
      */
   app.post("/api/auth/signin", controller.signin);
 };
