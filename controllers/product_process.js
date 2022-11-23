@@ -223,7 +223,7 @@ export function DeleteProduct (req, res) {
             return Rest.SendError(res, errorCode, errorMessage, httpCode, errorDescription);
         }
         let ResultData = {};
-        ResultData.id = UserID;
+        ResultData.id = productID;
         return Rest.SendSuccess(res, ResultData, httpCode, "Deleted a product");
     });
 }
