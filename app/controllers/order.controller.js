@@ -36,7 +36,6 @@ exports.postOrder = (req, res)=>{
                 message: "Product not found"
             })
         }
-
         const order = new Order({
             productId: req.body.productId,
             quantity: req.body.quantity,
