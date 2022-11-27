@@ -121,7 +121,7 @@ module.exports = function(app){
      *
      * @apiDescription create a orders
      *
-     * @apiBody {String} id ID of product
+     * @apiBody {String} productId ID of product
      * @apiBody {Number} quantity quantity of the product
      * 
      * @apiExample Example usage:

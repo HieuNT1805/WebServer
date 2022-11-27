@@ -5,16 +5,10 @@ const productSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    price : {
-        type:Number,
-        required:true
-    },
-    stock: {
-        type:Number,
-    },
-    proType: {
-        type: String,
-    },
+    price : Number,
+    stock : Number,
+    proType: String,
+    proBrand: String,
     productImage: String,
     
 })

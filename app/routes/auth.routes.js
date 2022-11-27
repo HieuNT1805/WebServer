@@ -115,4 +115,6 @@ module.exports = function(app) {
      * @apiSampleRequest https://jewel-store-pj.herokuapp.com/api/auth/signin
      */
   app.post("/api/auth/signin", controller.signin);
+
+
 };
