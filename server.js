@@ -28,7 +28,7 @@ db.mongoose
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Register API." });
+  res.json({ message: "Jewel store API." });
 });
 
 // routes
