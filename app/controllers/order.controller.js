@@ -4,7 +4,7 @@ const Product = require("../models/product.model");
 exports.getOrders = (req, res)=>{
     Order.find({buyer: req.userId})
     .select("productId quantity _id buyer")
-    .populate("productId", "_id name price")
+    .populate("productId", "_id name price productImage")
     .exec()
     .then(docs=>{
         const response = {
