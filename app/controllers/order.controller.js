@@ -77,6 +77,22 @@ exports.getOrder = (req, res) =>{
     })
 }
 
+exports.updateOrder = (req, res)=>{
+    const id = req.params.orderId
+    Order.findByIdAndUpdate(id, req.body, {new:true})
+    .exec()
+    .then(result=>{
+        res.status(200).json({
+            message:"Order Updated Successfully",
+            result
+        })
+    })
+    .catch(err=>{
+		res.status(500).json({
+		   	error:err
+		})
+    })
+}
 exports.deleteOrder = (req, res )=>{
     const id = req.params.orderId
 

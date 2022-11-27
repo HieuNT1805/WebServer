@@ -158,7 +158,7 @@ module.exports = function(app){
     app.post("/api/orders/:orderId", auth.verifyToken, controller.postOrder)
     
     /**
-     * @api {PATCH} /api/manage/products/:productId Update
+     * @api {PATCH} /api/orders/:orderId Update
      * @apiVersion 1.0.0
      * @apiName updateOrder
      * @apiGroup Order
@@ -167,7 +167,9 @@ module.exports = function(app){
      *
      * @apiDescription Update order
      *
-     * @apiParam {Number} quantity number of product
+     * @apiParam {String} orderId Order ID
+     * 
+     * @apiBody {Number} quantity Number of product
      *
      * @apiExample Example usage:
      * curl -H "x-access-token: abc"-i  https://jewel-store-pj.herokuapp.com/api/api/orders/637a316c457d58c281b4bb3a
@@ -183,7 +185,7 @@ module.exports = function(app){
      * 
      * @apiSampleRequest https://jewel-store-pj.herokuapp.com/api/orders/:orderId
      */
-    app.patch("/api/orders/:orderId", auth.verifyToken, controller.getOrder)
+    app.patch("/api/orders/:orderId", auth.verifyToken, controller.updateOrder)
     
     /**
      * @api {DELETE} /api/orders/:orderId delete Order
