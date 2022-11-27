@@ -155,8 +155,35 @@ module.exports = function(app){
      * 
      * @apiSampleRequest https://jewel-store-pj.herokuapp.com/api/orders
      */
-    app.post("/api/orders", auth.verifyToken, controller.postOrder)
-
+    app.post("/api/orders/:orderId", auth.verifyToken, controller.postOrder)
+    
+    /**
+     * @api {PATCH} /api/manage/products/:productId Update
+     * @apiVersion 1.0.0
+     * @apiName updateOrder
+     * @apiGroup Order
+     * @apiPermission Every type of user
+     * @apiHeader {String} x-access-token json web token to access to data
+     *
+     * @apiDescription Update order
+     *
+     * @apiParam {Number} quantity number of product
+     *
+     * @apiExample Example usage:
+     * curl -H "x-access-token: abc"-i  https://jewel-store-pj.herokuapp.com/api/api/orders/637a316c457d58c281b4bb3a
+     *
+     * @apiError invalid input data
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 400 Bad Request
+     *     {
+     *       "result":"fail",
+     *       "message": "invalid input"
+     *     }
+     * 
+     * @apiSampleRequest https://jewel-store-pj.herokuapp.com/api/orders/:orderId
+     */
+    app.patch("/api/orders/:orderId", auth.verifyToken, controller.getOrder)
     
     /**
      * @api {DELETE} /api/orders/:orderId delete Order
