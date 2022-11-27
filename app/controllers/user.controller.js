@@ -24,7 +24,7 @@ exports.getUser=(req,res)=>{
 	.exec()
 	.then(doc=>{
 		res.status(200).json({
-		   	product:doc,
+		   	user:doc,
 		});
 		
 	})
