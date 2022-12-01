@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("./app/models");
 const Role = db.role;
 db.mongoose
-  .connect(`mongodb+srv://test:sPoHBSD0nXYLx5nM@test.z6kobm1.mongodb.net/test3`)
+  .connect(`mongodb+srv://KimLe:kimle123@cluster0.c6nnpzt.mongodb.net/JewelryStore`)
   .then(() => {
     console.log("Successfully connect to MongoDB.");
     initial();
