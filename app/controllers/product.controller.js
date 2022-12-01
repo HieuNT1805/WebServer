@@ -11,7 +11,7 @@ exports.getAllProducts = (req, res) =>{
 		   	count:docs.length,
 		   	products:docs.map(doc=>{
 		   		return {
-		   			_id:doc._id,
+		   			_id:doc.id,
 		   			name:doc.name,
 		   			price:doc.price,
                     stock:doc.stock,
