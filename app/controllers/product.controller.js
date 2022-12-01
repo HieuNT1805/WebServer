@@ -42,7 +42,7 @@ exports.postNewProduct = (req,res)=>{
 		res.status(201).json({
 			message : 'Product Created Successfully!!',
 			createdProduct:{
-				_id:result._id,
+				_id:result.id,
 				name:result.name,
 				price:result.price,
                 stock:req.body.stock,
