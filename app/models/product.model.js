@@ -1,15 +1,23 @@
 const mongoose = require("mongoose");
 
 const productSchema = mongoose.Schema({
-    name : {
+    ProName:{
         type: String,
-        require: true
+        minlength: 5,
+        maxlength: 100
     },
-    price : Number,
-    stock : Number,
-    proType: String,
-    proBrand: String,
-    productImage: String,
+    Material : {
+        type: String
+    },
+    Price: {
+        type: Number
+    },
+    Img_link : {
+        type: String
+    },
+    InStock: {
+        type: Number
+    }
     
 })
 

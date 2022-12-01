@@ -4,19 +4,19 @@ const Product = require("../models/product.model");
 
 exports.getAllProducts = (req, res) =>{
     Product.find()
-    .select('_id name price stock proType productImage')
+    .select('_id ProName Material Price Img_link')
 	.exec()
 	.then(docs=>{
 		const response = {
 		   	count:docs.length,
-		   	products:docs.map(doc=>{
+		   	products:docs.map((doc)=>{
 		   		return {
 		   			id:doc.id,
-		   			name:doc.name,
-		   			price:doc.price,
-                    stock:doc.stock,
-                    proType:doc.proType,
-					img: doc.productImage
+		   			name:doc.ProName,
+					material:doc.Material,
+		   			price:doc.Price,
+					img: doc.Img_link,
+		
 		   		}
 		   	})
 		}
