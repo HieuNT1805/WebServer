@@ -4,18 +4,19 @@ const Product = require("../models/product.model");
 
 exports.getAllProducts = (req, res) =>{
     Product.find()
-    .select('_id name price stock proType')
+    .select('_id ProName Material Price Img_link')
 	.exec()
 	.then(docs=>{
 		const response = {
 		   	count:docs.length,
-		   	products:docs.map(doc=>{
+		   	products:docs.map((doc)=>{
 		   		return {
-		   			_id:doc._id,
-		   			name:doc.name,
-		   			price:doc.price,
-                    stock:doc.stock,
-                    proType:doc.proType
+		   			id:doc.id,
+		   			name:doc.ProName,
+					material:doc.Material,
+		   			price:doc.Price,
+					img: doc.Img_link,
+		
 		   		}
 		   	})
 		}
@@ -41,7 +42,7 @@ exports.postNewProduct = (req,res)=>{
 		res.status(201).json({
 			message : 'Product Created Successfully!!',
 			createdProduct:{
-				_id:result._id,
+				_id:result.id,
 				name:result.name,
 				price:result.price,
                 stock:req.body.stock,

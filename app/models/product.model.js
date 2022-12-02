@@ -1,23 +1,25 @@
 const mongoose = require("mongoose");
 
 const productSchema = mongoose.Schema({
-    name : {
+    ProName:{
         type: String,
-        require: true
+        minlength: 5,
+        maxlength: 100
     },
-    price : {
-        type:Number,
-        required:true
+    Material : {
+        type: String
     },
-    stock: {
-        type:Number,
+    Price: {
+        type: Number
     },
-    proType: {
-        type: String,
+    Img_link : {
+        type: String
     },
-    productImage: String,
+    InStock: {
+        type: Number
+    }
     
 })
 
-const Product = mongoose.model('Product', productSchema)
+const Product = mongoose.model('products', productSchema)
 module.exports = Product;

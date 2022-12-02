@@ -4,7 +4,7 @@ const Product = require("../models/product.model");
 exports.getOrders = (req, res)=>{
     Order.find({buyer: req.userId})
     .select("productId quantity _id buyer")
-    .populate("productId", "_id name price")
+    .populate("productId", "_id name price productImage")
     .exec()
     .then(docs=>{
         const response = {
@@ -36,7 +36,6 @@ exports.postOrder = (req, res)=>{
                 message: "Product not found"
             })
         }
-
         const order = new Order({
             productId: req.body.productId,
             quantity: req.body.quantity,
@@ -78,6 +77,22 @@ exports.getOrder = (req, res) =>{
     })
 }
 
+exports.updateOrder = (req, res)=>{
+    const id = req.params.orderId
+    Order.findByIdAndUpdate(id, req.body, {new:true})
+    .exec()
+    .then(result=>{
+        res.status(200).json({
+            message:"Order Updated Successfully",
+            result
+        })
+    })
+    .catch(err=>{
+		res.status(500).json({
+		   	error:err
+		})
+    })
+}
 exports.deleteOrder = (req, res )=>{
     const id = req.params.orderId
 

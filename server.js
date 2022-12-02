@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("./app/models");
 const Role = db.role;
 db.mongoose
-  .connect(`mongodb+srv://test:sPoHBSD0nXYLx5nM@test.z6kobm1.mongodb.net/test3`)
+  .connect(`mongodb+srv://KimLe:kimle123@cluster0.c6nnpzt.mongodb.net/JewelryStore`)
   .then(() => {
     console.log("Successfully connect to MongoDB.");
     initial();
@@ -28,13 +28,14 @@ db.mongoose
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Register API." });
+  res.json({ message: "Jewel store API." });
 });
 
 // routes
 require('./app/routes/auth.routes')(app);
 require('./app/routes/product.routes')(app);
 require('./app/routes/order.routes')(app);
+require('./app/routes/user.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;

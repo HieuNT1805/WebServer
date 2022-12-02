@@ -2,6 +2,7 @@ const controller = require("../controllers/order.controller");
 const { auth } = require("../middlewares");
 
 module.exports = function(app){
+    
 
     /**
      * @api {GET} /api/orders Get Orders
@@ -120,7 +121,7 @@ module.exports = function(app){
      *
      * @apiDescription create a orders
      *
-     * @apiBody {String} id ID of product
+     * @apiBody {String} productId ID of product
      * @apiBody {Number} quantity quantity of the product
      * 
      * @apiExample Example usage:
@@ -154,8 +155,37 @@ module.exports = function(app){
      * 
      * @apiSampleRequest https://jewel-store-pj.herokuapp.com/api/orders
      */
-    app.post("/api/orders", auth.verifyToken, controller.postOrder)
-
+    app.post("/api/orders/:orderId", auth.verifyToken, controller.postOrder)
+    
+    /**
+     * @api {PATCH} /api/orders/:orderId Update
+     * @apiVersion 1.0.0
+     * @apiName updateOrder
+     * @apiGroup Order
+     * @apiPermission Every type of user
+     * @apiHeader {String} x-access-token json web token to access to data
+     *
+     * @apiDescription Update order
+     *
+     * @apiParam {String} orderId Order ID
+     * 
+     * @apiBody {Number} quantity Number of product
+     *
+     * @apiExample Example usage:
+     * curl -H "x-access-token: abc"-i  https://jewel-store-pj.herokuapp.com/api/api/orders/637a316c457d58c281b4bb3a
+     *
+     * @apiError invalid input data
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 400 Bad Request
+     *     {
+     *       "result":"fail",
+     *       "message": "invalid input"
+     *     }
+     * 
+     * @apiSampleRequest https://jewel-store-pj.herokuapp.com/api/orders/:orderId
+     */
+    app.patch("/api/orders/:orderId", auth.verifyToken, controller.updateOrder)
     
     /**
      * @api {DELETE} /api/orders/:orderId delete Order
