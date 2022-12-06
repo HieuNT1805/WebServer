@@ -1,5 +1,6 @@
 
 const Product = require("../models/product.model");
+const cloudinary = require("../config/cloudinary")
 
 
 exports.getAllProducts = (req, res) =>{
@@ -56,6 +57,33 @@ exports.postNewProduct = (req,res)=>{
 	});
 };
 
+exports.uploadImg = (req,res)=>{
+	const id = req.params.productId;
+	try{
+		cloudinary.uploader.upload(req.file.path)
+		.then(result=>{
+			Product.findByIdAndUpdate(id, {Img_link: result.url}, {new:true})
+			.exec()
+			.then(result=>{
+				res.status(200).json({
+					message:"Product uploadImg Successfully",
+					result
+				})
+			})
+			.catch(err=>{
+				res.status(500).json({
+					error:err
+				})
+			})
+		});
+	}
+	catch(err)
+	{
+		console(err)
+	}
+	
+	
+}
 exports.getProduct = (req,res)=>{
 	const id = req.params.productId;
 	Product.findById(id)
@@ -64,7 +92,10 @@ exports.getProduct = (req,res)=>{
 	.then(doc=>{
 		if(doc){
 		   	res.status(200).json({
-		   		product:{
+
+				product:{
+
+
 					id:doc.id,
 		   			name:doc.ProName,
 					material:doc.Material,

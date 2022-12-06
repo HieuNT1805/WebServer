@@ -18,7 +18,10 @@ const productSchema = mongoose.Schema({
     InStock: {
         type: Number
     },
-    desc: String
+
+    des:String
+    
+
 })
 
 const Product = mongoose.model('products', productSchema)

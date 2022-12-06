@@ -5,9 +5,10 @@ exports.updateInformation = (req,res)=>{
     const id = req.userId;
     User.findByIdAndUpdate(id, req.body, {new:true})
     .exec()
-    .then(()=>{
+    .then((doc)=>{
         res.status(200).json({
             message:"Information Updated Successfully",
+			doc:doc
         })
     })
     .catch(err=>{
@@ -20,8 +21,8 @@ exports.updateInformation = (req,res)=>{
 exports.getUser=(req,res)=>{
     const id = req.userId;
 	User.findById(id)
-	.select('_id firstname lastname email address contact')
-	.exec()
+	.select('_id username firstname lastname email address contact')
+	.exec()	
 	.then(doc=>{
 		res.status(200).json({
 		   	user:doc,
