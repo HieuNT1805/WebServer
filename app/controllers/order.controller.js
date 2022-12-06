@@ -63,7 +63,7 @@ exports.getOrder = (req, res) =>{
 
     Order.find({_id: id, buyer:req.userId})
     .select("productId quantity _id")
-    .populate("productId", "_id name price")
+    .populate("productId", "_id ProName Price")
     .exec()
     .then(doc=>{
         if(doc){

@@ -1,5 +1,6 @@
 
 const Product = require("../models/product.model");
+const cloudinary = require("../config/cloudinary")
 
 
 exports.getAllProducts = (req, res) =>{
@@ -31,10 +32,10 @@ exports.getAllProducts = (req, res) =>{
 
 exports.postNewProduct = (req,res)=>{
 	const product = new Product({
-		name:req.body.name,
-		price : req.body.price,
-        stock:req.body.stock,
-        proType:req.body.proType
+		ProName:req.body.name,
+		Price : req.body.price,
+		Material : req.body.material,
+		desc : req.body.desc
 	});
 
 	product.save()
@@ -42,11 +43,11 @@ exports.postNewProduct = (req,res)=>{
 		res.status(201).json({
 			message : 'Product Created Successfully!!',
 			createdProduct:{
-				_id:result.id,
-				name:result.name,
-				price:result.price,
-                stock:req.body.stock,
-                proType:req.body.proType
+				id:result.id,
+				name:result.ProName,
+				price:result.Price,
+                material:req.body.Material,
+                desc:req.body.desc
 			}
 		});
 	})
@@ -57,15 +58,49 @@ exports.postNewProduct = (req,res)=>{
 	});
 };
 
+exports.uploadImg = (req,res)=>{
+	const id = req.params.productId;
+	try{
+		cloudinary.uploader.upload(req.file.path)
+		.then(result=>{
+			Product.findByIdAndUpdate(id, {Img_link: result.url}, {new:true})
+			.exec()
+			.then(result=>{
+				res.status(200).json({
+					message:"Product uploadImg Successfully",
+					result
+				})
+			})
+			.catch(err=>{
+				res.status(500).json({
+					error:err
+				})
+			})
+		});
+	}
+	catch(err)
+	{
+		console(err)
+	}
+	
+	
+}
 exports.getProduct = (req,res)=>{
 	const id = req.params.productId;
 	Product.findById(id)
-	.select('_id name price stock proType')
+	.select('_id ProName Price Material desc Img_link')
 	.exec()
 	.then(doc=>{
 		if(doc){
 		   	res.status(200).json({
-		   		product:doc,
+				product:{
+					id:doc.id,
+		   			name:doc.ProName,
+					material:doc.Material,
+		   			price:doc.Price,
+					img: doc.Img_link,
+					desc: doc.desc
+				}
 		   	});
 		}
 		else{

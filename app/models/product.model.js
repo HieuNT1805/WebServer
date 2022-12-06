@@ -17,7 +17,8 @@ const productSchema = mongoose.Schema({
     },
     InStock: {
         type: Number
-    }
+    },
+    des:String
     
 })
 

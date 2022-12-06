@@ -24,10 +24,12 @@ module.exports = function(app) {
      * @apiBody {string} email unique email
      * @apiBody {String} [firstname] firstname of user
      * @apiBody {String} [lastname] lastname of user
+     * @apiBody {String} [contact] lastname of user
+     * @apiBody {String} [address] lastname of user
      * @apiBody {String} password a string with 6 <= length <= 64
      *
      * @apiExample Example usage:
-     * curl -i https://jewel-store-pj.herokuapp.com/api/auth/signup
+     * curl -i https://jewelstore.onrender.com/api/auth/signup
      *
      * @apiSuccess {String} message registered successfully
      * @apiSuccessExample Success-Response:
@@ -52,7 +54,7 @@ module.exports = function(app) {
      *        "Failed! Email is already in use!,
      *      }
      *
-     *@apiSampleRequest https://jewel-store-pj.herokuapp.com/api/auth/signup
+     *@apiSampleRequest https://jewelstore.onrender.com/api/auth/signup
      */
   app.post(
     "/api/auth/signup",
@@ -78,7 +80,7 @@ module.exports = function(app) {
      * @apiBody {String} password=123456789 a string with 4 < length < 64
      *
      * @apiExample Example usage:
-     * curl -i https://jewel-store-pj.herokuapp.com/api/auth/signin
+     * curl -i https://jewelstore.onrender.com/api/auth/signin
      *
      * @apiSuccess {object} data the user data with accessToken
      * @apiSuccess {array} roles of user
@@ -112,7 +114,7 @@ module.exports = function(app) {
      *      }
      * 
      * 
-     * @apiSampleRequest https://jewel-store-pj.herokuapp.com/api/auth/signin
+     * @apiSampleRequest https://jewelstore.onrender.com/api/auth/signin
      */
   app.post("/api/auth/signin", controller.signin);
 
