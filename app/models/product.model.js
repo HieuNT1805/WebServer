@@ -18,8 +18,10 @@ const productSchema = mongoose.Schema({
     InStock: {
         type: Number
     },
+
     des:String
     
+
 })
 
 const Product = mongoose.model('products', productSchema)

@@ -17,7 +17,6 @@ exports.getAllProducts = (req, res) =>{
 					material:doc.Material,
 		   			price:doc.Price,
 					img: doc.Img_link,
-		
 		   		}
 		   	})
 		}
@@ -93,7 +92,10 @@ exports.getProduct = (req,res)=>{
 	.then(doc=>{
 		if(doc){
 		   	res.status(200).json({
+
 				product:{
+
+
 					id:doc.id,
 		   			name:doc.ProName,
 					material:doc.Material,
