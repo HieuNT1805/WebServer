@@ -30,10 +30,18 @@ exports.getAllProducts = (req, res) =>{
 
 exports.postNewProduct = (req,res)=>{
 	const product = new Product({
+<<<<<<< Updated upstream
 		name:req.body.name,
 		price : req.body.price,
         stock:req.body.stock,
         proType:req.body.proType
+=======
+		ProName:req.body.name,
+		Price : req.body.price,
+		Material : req.body.material,
+		Img_link : req.body.img,
+		desc : req.body.desc
+>>>>>>> Stashed changes
 	});
 
 	product.save()
@@ -41,11 +49,20 @@ exports.postNewProduct = (req,res)=>{
 		res.status(201).json({
 			message : 'Product Created Successfully!!',
 			createdProduct:{
+<<<<<<< Updated upstream
 				_id:result._id,
 				name:result.name,
 				price:result.price,
                 stock:req.body.stock,
                 proType:req.body.proType
+=======
+				id:result.id,
+				name:result.ProName,
+				price:result.Price,
+                material:req.body.Material,
+				img:req.body.Img_link,
+                desc:req.body.desc
+>>>>>>> Stashed changes
 			}
 		});
 	})

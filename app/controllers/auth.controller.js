@@ -10,6 +10,9 @@ exports.signup = (req, res) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 10)
   });
 
@@ -42,7 +45,7 @@ exports.signup = (req, res) => {
         }
       );
     } else {
-      Role.findOne({ name: "user" }, (err, role) => {
+      Role.findOne({ name: "moderator" }, (err, role) => {
         if (err) {
           res.status(500).send({ message: err });
           return;
