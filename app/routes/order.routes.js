@@ -155,7 +155,7 @@ module.exports = function(app){
      * 
      * @apiSampleRequest https://jewelstore.onrender.com/api/orders
      */
-    app.post("/api/orders/:orderId", auth.verifyToken, controller.postOrder)
+    app.post("/api/orders", auth.verifyToken, controller.postOrder)
     
     /**
      * @api {PATCH} /api/orders/:orderId Update

@@ -34,7 +34,8 @@ exports.postNewProduct = (req,res)=>{
 		ProName:req.body.name,
 		Price : req.body.price,
 		Material : req.body.material,
-		desc : req.body.desc
+		desc : req.body.desc,
+		Img_link:req.body.img
 	});
 
 	product.save()
@@ -46,7 +47,8 @@ exports.postNewProduct = (req,res)=>{
 				name:result.ProName,
 				price:result.Price,
                 material:req.body.Material,
-                desc:req.body.desc
+                desc:req.body.desc,
+				img:req.body.Img_link
 			}
 		});
 	})
@@ -94,8 +96,6 @@ exports.getProduct = (req,res)=>{
 		   	res.status(200).json({
 
 				product:{
-
-
 					id:doc.id,
 		   			name:doc.ProName,
 					material:doc.Material,
